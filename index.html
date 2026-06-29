@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Around The Woodlands — Field guides for The Woodlands area</title>
+  <meta name="description" content="Free, locally-made apps for life around The Woodlands. Rank your eats, map your fishing spots, hike the trails. No signup, no tracking." />
+  <meta name="theme-color" content="#F4EAD2" />
+
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Around The Woodlands" />
+  <meta property="og:description" content="Field guides for life around The Woodlands. Free, no signup." />
+  <meta property="og:image" content="og-image.png" />
+  <meta property="og:url" content="https://compo-cf.github.io/around-the-woodlands/" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <style>
+    :root {
+      --sky-top: #F4EAD2;
+      --sky-bot: #E4D5B8;
+      --surface: #FFFCF2;
+      --surface-hover: #FBF6E6;
+      --text: #2A3A2E;
+      --text-muted: #6B7565;
+      --pine: #2A4034;
+      --gold: #C9AF86;
+      --stroke: rgba(38, 58, 48, 0.10);
+      --shadow: 0 1px 2px rgba(38, 58, 48, 0.06), 0 8px 24px rgba(38, 58, 48, 0.08);
+      --shadow-hover: 0 2px 4px rgba(38, 58, 48, 0.08), 0 14px 32px rgba(38, 58, 48, 0.12);
+      --kofi: #B33A3A;
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bot) 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    main {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .icon {
+      width: 132px;
+      height: 132px;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 0 0 6px;
+      text-align: center;
+    }
+
+    .tagline {
+      margin: 0;
+      font-size: 16px;
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 380px;
+      line-height: 1.45;
+    }
+
+    .meta {
+      margin: 14px 0 36px;
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .apps {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .app-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      background: var(--surface);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+    .app-card:hover,
+    .app-card:focus-visible {
+      background: var(--surface-hover);
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-1px);
+      outline: none;
+    }
+    .app-card:active { transform: translateY(0); }
+
+    .app-card.disabled {
+      opacity: 0.6;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .app-mark {
+      width: 44px;
+      height: 44px;
+      flex: 0 0 44px;
+      border-radius: 12px;
+      background: var(--pine);
+      color: var(--sky-top);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    .app-text { flex: 1; min-width: 0; }
+    .app-name { font-size: 17px; font-weight: 600; margin: 0 0 2px; }
+    .app-desc { font-size: 14px; color: var(--text-muted); margin: 0; line-height: 1.35; }
+
+    .app-arrow {
+      font-size: 18px;
+      color: var(--pine);
+      font-weight: 500;
+      flex: 0 0 auto;
+    }
+    .app-card.disabled .app-arrow { color: var(--text-muted); }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: var(--stroke);
+      margin: 36px auto 28px;
+    }
+
+    .secondary {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .kofi {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 20px;
+      background: transparent;
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 500;
+      transition: background 120ms ease, border-color 120ms ease;
+    }
+    .kofi:hover {
+      background: var(--surface);
+      border-color: rgba(38, 58, 48, 0.20);
+    }
+    .kofi-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--kofi);
+      flex: 0 0 10px;
+    }
+
+    footer {
+      margin-top: 56px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    footer a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 2px; }
+
+    @media (max-width: 380px) {
+      main { padding: 40px 18px 64px; }
+      h1 { font-size: 24px; }
+      .icon { width: 112px; height: 112px; border-radius: 26px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .app-card { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <img class="icon" src="icon.png" alt="Around The Woodlands" />
+    <h1>Around The Woodlands</h1>
+    <p class="tagline">Field guides for life around The Woodlands &amp; the surrounding area.</p>
+    <p class="meta">Free · No signup · Made by a local</p>
+
+    <section class="apps" aria-label="Apps">
+      <a class="app-card" href="https://apps.apple.com/app/id6773501518" aria-label="Open S-Tier Eats on the App Store">
+        <span class="app-mark">STE</span>
+        <span class="app-text">
+          <p class="app-name">S-Tier Eats</p>
+          <p class="app-desc">2,600+ restaurants on a classic S/A/B/C/F tier list.</p>
+        </span>
+        <span class="app-arrow" aria-hidden="true">›</span>
+      </a>
+
+      <a class="app-card" href="https://apps.apple.com/us/app/the-woodlands-fishing-guide/id6773332173" aria-label="Open The Woodlands Fishing Guide on the App Store">
+        <span class="app-mark">WFG</span>
+        <span class="app-text">
+          <p class="app-name">The Woodlands Fishing Guide</p>
+          <p class="app-desc">81 lake &amp; pond spots with live weather and a catch log.</p>
+        </span>
+        <span class="app-arrow" aria-hidden="true">›</span>
+      </a>
+
+      <div class="app-card disabled" aria-label="Woodlands Trail Guide — coming soon">
+        <span class="app-mark">WTG</span>
+        <span class="app-text">
+          <p class="app-name">Woodlands Trail Guide</p>
+          <p class="app-desc">Every named trail in the township. Coming soon.</p>
+        </span>
+        <span class="app-arrow" aria-hidden="true">soon</span>
+      </div>
+    </section>
+
+    <div class="divider" role="separator"></div>
+
+    <section class="secondary" aria-label="Support">
+      <a class="kofi" href="https://ko-fi.com/subtlefoodie">
+        <span class="kofi-dot" aria-hidden="true"></span>
+        <span>Support the developer on Ko-fi</span>
+      </a>
+    </section>
+
+    <footer>
+      Built by one person in The Woodlands.<br />
+      No accounts, no tracking, no data sold.
+    </footer>
+  </main>
+</body>
+</html>
