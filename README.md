@@ -9,9 +9,14 @@ Link-in-bio landing page for [@aroundwoodlandstx](https://instagram.com/aroundwo
 Single-page static site, no framework, no JS. Pure HTML + inline CSS for fast load and zero third-party dependencies.
 
 Apps linked:
-- **S-Tier Eats** — https://apps.apple.com/app/id6773501518
+- **S-Tier Eats** (iPhone) — https://apps.apple.com/app/id6773501518
+- **S-Tier Eats for Android** — https://play.google.com/store/apps/details?id=com.compofelice.stiereats
 - **The Woodlands Fishing Guide** — https://apps.apple.com/us/app/the-woodlands-fishing-guide/id6773332173
-- **Woodlands Trail Guide** — coming soon
+- **Woodlands Trail Guide** — https://apps.apple.com/us/app/woodlands-trail-guide/id6785576912
+
+Also by the developer:
+- **Cosmica: Idle Universe** — https://apps.apple.com/us/app/cosmica-idle-universe/id6784340038
+- **Pupdoku: Puppy Puzzles** — https://apps.apple.com/us/app/id6797896315
 
 Plus the Ko-fi tip jar ([ko-fi.com/subtlefoodie](https://ko-fi.com/subtlefoodie)).
 
@@ -41,4 +46,8 @@ To enable on a fresh fork: Settings -> Pages -> Source: `main`, folder: `/ (root
 
 ## Updating apps
 
-When the Trail Guide ships, replace the `disabled` card in `index.html` with a real `<a class="app-card" href="...">` (mirror the other two), drop the App Store URL in, commit and push. Pages redeploys automatically.
+Each app is one `<a class="app-card" href="...">` block in `index.html`. To add a store link or a new app, copy an existing card, change the mark, name, description and URL, then commit and push. Pages redeploys automatically. A second platform gets its own card, as with S-Tier Eats for Android.
+
+Write descriptions from the live store listing (the App Store page carries the full text), not from memory, and only claim features that ship on that platform. Only link apps that have a public store listing; Play closed-test apps return 404.
+
+If an app name appears in the share image, change the text in `scripts/build_assets.py` and re-render only `og-image.png`. Running the whole script also rewrites the icons.

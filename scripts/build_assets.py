@@ -64,6 +64,13 @@ def make_og_image(icon: Image.Image) -> Image.Image:
     reg  = ["segoeui.ttf", "Georgia", "arial.ttf", "DejaVuSans.ttf"]
 
     title_font = find_font(bold, 64)
+    # The title is wider than the right column at 64px and clipped at the
+    # card edge, so shrink it until it fits.
+    max_title_w = W - text_x - 50
+    size = 64
+    while size > 40 and draw.textlength("Around The Woodlands", font=title_font) > max_title_w:
+        size -= 2
+        title_font = find_font(bold, size)
     sub_font   = find_font(reg, 32)
     list_font  = find_font(reg, 28)
 
@@ -73,7 +80,7 @@ def make_og_image(icon: Image.Image) -> Image.Image:
               "Field guides for life around\nThe Woodlands.",
               font=sub_font, fill=TEXT_DARK)
     draw.text((text_x, 410),
-              "S-Tier Eats   ·   Fishing Guide\nTrail Guide (soon)",
+              "S-Tier Eats   ·   Fishing Guide\nTrail Guide",
               font=list_font, fill=TEXT_MUTED, spacing=8)
 
     return img
