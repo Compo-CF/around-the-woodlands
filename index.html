@@ -31,8 +31,6 @@
       --shadow: 0 1px 2px rgba(38, 58, 48, 0.06), 0 8px 24px rgba(38, 58, 48, 0.08);
       --shadow-hover: 0 2px 4px rgba(38, 58, 48, 0.08), 0 14px 32px rgba(38, 58, 48, 0.12);
       --kofi: #B33A3A;
-      --cosmic: #3E2B66;
-      --pupdoku: #B0754E;
       --radius: 18px;
     }
 
@@ -92,9 +90,9 @@
 
     .apps {
       width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
     }
 
     .app-card {
@@ -125,19 +123,13 @@
       pointer-events: none;
     }
 
-    .app-mark {
-      width: 44px;
-      height: 44px;
-      flex: 0 0 44px;
-      border-radius: 12px;
-      background: var(--pine);
-      color: var(--sky-top);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 14px;
-      letter-spacing: 0.02em;
+    .app-icon {
+      width: 56px;
+      height: 56px;
+      flex: 0 0 56px;
+      display: block;
+      border-radius: 22.4%;
+      box-shadow: 0 0 0 1px rgba(38, 58, 48, 0.10), 0 2px 6px rgba(38, 58, 48, 0.14);
     }
 
     .app-text { flex: 1; min-width: 0; }
@@ -151,6 +143,47 @@
       flex: 0 0 auto;
     }
     .app-card.disabled .app-arrow { color: var(--text-muted); }
+
+    /* Large cards for the four field guides */
+    .app-card--lg {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 18px;
+      padding: 24px;
+    }
+    .card-head {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .app-icon--lg {
+      width: 84px;
+      height: 84px;
+      flex: 0 0 84px;
+    }
+    .card-title { min-width: 0; }
+    .app-kicker {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 11.5px;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+    .app-card--lg .app-name { font-size: 22px; line-height: 1.2; margin: 0; }
+    .app-card--lg .app-desc { font-size: 15px; line-height: 1.55; }
+    .card-cta {
+      margin-top: auto;
+      padding: 13px 18px;
+      border-radius: 12px;
+      background: var(--pine);
+      color: var(--sky-top);
+      font-size: 15px;
+      font-weight: 600;
+      text-align: center;
+      transition: background 120ms ease;
+    }
+    .app-card--lg:hover .card-cta,
+    .app-card--lg:focus-visible .card-cta { background: #1E3027; }
 
     .divider {
       width: 60px;
@@ -171,11 +204,10 @@
       text-transform: uppercase;
       margin: 0 0 18px;
     }
-    .app-mark--cosmic  { background: var(--cosmic); }
-    .app-mark--pupdoku { background: var(--pupdoku); }
 
     .secondary {
       width: 100%;
+      max-width: 520px;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -221,6 +253,14 @@
       main { padding: 40px 18px 64px; }
       h1 { font-size: 24px; }
       .icon { width: 112px; height: 112px; border-radius: 26px; }
+      .app-card--lg { padding: 20px; }
+      .app-icon--lg { width: 72px; height: 72px; flex-basis: 72px; }
+    }
+
+    @media (min-width: 760px) {
+      main { max-width: 880px; }
+      .apps { grid-template-columns: 1fr 1fr; gap: 20px; }
+      .also-header { grid-column: 1 / -1; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -236,40 +276,52 @@
     <p class="meta">Free · No signup · Made by a local</p>
 
     <section class="apps" aria-label="Apps">
-      <a class="app-card" href="https://apps.apple.com/app/id6773501518" aria-label="Open S-Tier Eats on the App Store">
-        <span class="app-mark">STE</span>
-        <span class="app-text">
-          <p class="app-name">S-Tier Eats</p>
-          <p class="app-desc">4,700+ restaurants ranked on a classic S/A/B/C/F tier list.</p>
-        </span>
-        <span class="app-arrow" aria-hidden="true">›</span>
+      <a class="app-card app-card--lg" href="https://apps.apple.com/app/id6773501518" aria-label="Open S-Tier Eats on the App Store">
+        <div class="card-head">
+          <img class="app-icon app-icon--lg" src="icons/stier-eats.png" alt="" width="84" height="84">
+          <div class="card-title">
+            <span class="app-kicker">RESTAURANTS &middot; iOS</span>
+            <p class="app-name">S-Tier Eats</p>
+          </div>
+        </div>
+        <p class="app-desc">Rank every restaurant S, A, B, C or F instead of squinting at a 4.2-star blur. Build your own tier list, then see how it stacks up against the community board and the local Foodie Pros. Plan a Night Out picks tonight's spot from your filters, Near Me shows the best-ranked places around you, and friends can compare tastes. 4,700+ restaurants across 14 areas.</p>
+        <span class="card-cta">Download on the App Store</span>
       </a>
 
-      <a class="app-card" href="https://play.google.com/store/apps/details?id=com.compofelice.stiereats" aria-label="Open S-Tier Eats on Google Play">
-        <span class="app-mark">STE</span>
-        <span class="app-text">
-          <p class="app-name">S-Tier Eats for Android</p>
-          <p class="app-desc">The same community rankings, now on Google Play.</p>
-        </span>
-        <span class="app-arrow" aria-hidden="true">&rsaquo;</span>
+      <a class="app-card app-card--lg" href="https://play.google.com/store/apps/details?id=com.compofelice.stiereats" aria-label="Open S-Tier Eats on Google Play">
+        <div class="card-head">
+          <img class="app-icon app-icon--lg" src="icons/stier-eats-android.png" alt="" width="84" height="84">
+          <div class="card-title">
+            <span class="app-kicker">RESTAURANTS &middot; ANDROID</span>
+            <p class="app-name">S-Tier Eats for Android</p>
+          </div>
+        </div>
+        <p class="app-desc">The same honest tier list as a native Android app. Rank every restaurant S through F, browse 4,700+ spots on a clustered map, and check the community's Everyone and Foodie Pros boards. Plan a Night Out picks tonight's dinner, Top-rated Near Me finds the best-ranked places around you, and each restaurant has one-tap Directions, Call, Order and Reserve where they apply.</p>
+        <span class="card-cta">Get it on Google Play</span>
       </a>
 
-      <a class="app-card" href="https://apps.apple.com/us/app/the-woodlands-fishing-guide/id6773332173" aria-label="Open The Woodlands Fishing Guide on the App Store">
-        <span class="app-mark">WFG</span>
-        <span class="app-text">
-          <p class="app-name">The Woodlands Fishing Guide</p>
-          <p class="app-desc">81 hand-picked fishing spots with access, species and weather.</p>
-        </span>
-        <span class="app-arrow" aria-hidden="true">›</span>
+      <a class="app-card app-card--lg" href="https://apps.apple.com/us/app/the-woodlands-fishing-guide/id6773332173" aria-label="Open The Woodlands Fishing Guide on the App Store">
+        <div class="card-head">
+          <img class="app-icon app-icon--lg" src="icons/fishing-guide.png" alt="" width="84" height="84">
+          <div class="card-title">
+            <span class="app-kicker">FISHING &middot; iOS</span>
+            <p class="app-name">The Woodlands Fishing Guide</p>
+          </div>
+        </div>
+        <p class="app-desc">A hand-curated map of 81 fishing spots in and around The Woodlands, vetted by a local angler: lakes, ponds, boat ramps, creek bends and TPWD Community Fishing Lakes. Four pin colors show public versus private access at a glance, every spot lists the species to expect, and a weather card gives temperature, wind, pressure, sunrise and sunset. No account needed.</p>
+        <span class="card-cta">Download on the App Store</span>
       </a>
 
-      <a class="app-card" href="https://apps.apple.com/us/app/woodlands-trail-guide/id6785576912" aria-label="Open Woodlands Trail Guide on the App Store">
-        <span class="app-mark">WTG</span>
-        <span class="app-text">
-          <p class="app-name">Woodlands Trail Guide</p>
-          <p class="app-desc">Turn-by-turn navigation on 200+ miles of Woodlands pathway.</p>
-        </span>
-        <span class="app-arrow" aria-hidden="true">&rsaquo;</span>
+      <a class="app-card app-card--lg" href="https://apps.apple.com/us/app/woodlands-trail-guide/id6785576912" aria-label="Open Woodlands Trail Guide on the App Store">
+        <div class="card-head">
+          <img class="app-icon app-icon--lg" src="icons/trail-guide.png" alt="" width="84" height="84">
+          <div class="card-title">
+            <span class="app-kicker">TRAILS &middot; iOS</span>
+            <p class="app-name">Woodlands Trail Guide</p>
+          </div>
+        </div>
+        <p class="app-desc">Turn-by-turn navigation for the 200+ miles of pathway and natural trail across The Woodlands. Tell it how far or how long and it builds a loop or an out-and-back, paved or natural, from wherever you are. 3,400+ mapped points of interest like restrooms, water fountains and playgrounds, plus elevation profiles, live weather and curated walks.</p>
+        <span class="card-cta">Download on the App Store</span>
       </a>
     </section>
 
@@ -277,20 +329,20 @@
       <p class="also-header">Also by the developer</p>
 
       <a class="app-card" href="https://apps.apple.com/us/app/cosmica-idle-universe/id6784340038" aria-label="Open Cosmica on the App Store">
-        <span class="app-mark app-mark--cosmic">COS</span>
-        <span class="app-text">
+        <img class="app-icon" src="icons/cosmica.png" alt="" width="56" height="56">
+        <div class="app-text">
           <p class="app-name">Cosmica: Idle Universe</p>
           <p class="app-desc">Idle galaxy that plays itself, with automation and a Cosmic Tree.</p>
-        </span>
+        </div>
         <span class="app-arrow" aria-hidden="true">&rsaquo;</span>
       </a>
 
       <a class="app-card" href="https://apps.apple.com/us/app/id6797896315" aria-label="Open Pupdoku on the App Store">
-        <span class="app-mark app-mark--pupdoku">PUP</span>
-        <span class="app-text">
+        <img class="app-icon" src="icons/pupdoku.png" alt="" width="56" height="56">
+        <div class="app-text">
           <p class="app-name">Pupdoku</p>
           <p class="app-desc">Find the hidden puppies in a cozy logic puzzle, 5&times;5 up to 9&times;9.</p>
-        </span>
+        </div>
         <span class="app-arrow" aria-hidden="true">&rsaquo;</span>
       </a>
     </section>

@@ -24,6 +24,7 @@ Plus the Ko-fi tip jar ([ko-fi.com/subtlefoodie](https://ko-fi.com/subtlefoodie)
 
 ```
 index.html              Page itself (CSS inlined)
+icons/                  App icons for the cards, from the store listings
 icon.png                512px hero icon
 icon-master.png         1024px master, not served
 favicon.png             256px tab icon
@@ -46,7 +47,9 @@ To enable on a fresh fork: Settings -> Pages -> Source: `main`, folder: `/ (root
 
 ## Updating apps
 
-Each app is one `<a class="app-card" href="...">` block in `index.html`. To add a store link or a new app, copy an existing card, change the mark, name, description and URL, then commit and push. Pages redeploys automatically. A second platform gets its own card, as with S-Tier Eats for Android.
+Each app is one `<a class="app-card" href="...">` block in `index.html`. The four field guides use the large card (`app-card--lg`: icon, kicker, detailed description and a store button) and the "Also by the developer" games use the compact row card. Phones get one column; from 760px up the large cards sit in a 2x2 grid. Copy whichever card fits, change the icon, name, description and URL, then commit and push. Pages redeploys automatically. A second platform gets its own card, as with S-Tier Eats for Android.
+
+Each card shows the app's real icon from `icons/` (PNGs at 3x the size they're shown: 256px for the large cards, 168px for the compact ones, so they stay sharp on retina; the page rounds the corners). For an iOS app, `https://itunes.apple.com/lookup?id=<appId>` returns `artworkUrl512`; resize that to 168px. For a Play-only app use the icon from the Play listing. Use each platform's own icon, because they can differ (S-Tier Eats' Android icon has no letters on the bars). Re-fetch when an app changes its icon.
 
 Write descriptions from the live store listing (the App Store page carries the full text), not from memory, and only claim features that ship on that platform. Only link apps that have a public store listing; Play closed-test apps return 404.
 
