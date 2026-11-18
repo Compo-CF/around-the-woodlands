@@ -1,0 +1,64 @@
+/* Cooper Lunch Alerts pages. Same palette as the Around The Woodlands home page. */
+:root {
+  --sky-top: #F4EAD2;
+  --sky-bot: #E4D5B8;
+  --surface: #FFFCF2;
+  --text: #2A3A2E;
+  --text-muted: #5E6858;
+  --pine: #2A4034;
+  --stroke: rgba(38, 58, 48, 0.14);
+  --shadow: 0 1px 2px rgba(38, 58, 48, 0.06), 0 8px 24px rgba(38, 58, 48, 0.08);
+  --ok: #24613A;
+  --err: #A1302A;
+  --radius: 18px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { background: var(--sky-bot); }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bot) 100%);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
+}
+main { max-width: 640px; margin: 0 auto; padding: 40px 16px 72px; }
+.crumb { font-size: 14px; margin: 0 0 24px; }
+.crumb a, main a { color: var(--pine); text-underline-offset: 2px; }
+h1 { font-size: 28px; line-height: 1.2; letter-spacing: -0.01em; margin: 0 0 8px; }
+h2 { font-size: 19px; margin: 32px 0 8px; }
+.lede { font-size: 17px; color: var(--text-muted); margin: 0 0 24px; }
+.updated { font-size: 14px; color: var(--text-muted); margin: 0 0 24px; }
+.card {
+  background: var(--surface); border: 1px solid var(--stroke); border-radius: var(--radius);
+  box-shadow: var(--shadow); padding: 22px;
+}
+.sample {
+  background: var(--sky-top); border-radius: 12px; padding: 12px 14px; margin: 0 0 20px;
+  white-space: pre-line; font-size: 15px;
+}
+label.field { display: block; font-weight: 600; margin-bottom: 6px; }
+input[type=tel] {
+  width: 100%; font: inherit; font-size: 17px; padding: 12px; border-radius: 10px;
+  border: 1px solid var(--stroke); background: #fff; color: var(--text);
+}
+.consent { display: flex; gap: 10px; align-items: flex-start; margin: 18px 0; font-size: 14px; color: var(--text-muted); }
+.consent input { margin-top: 3px; width: 18px; height: 18px; flex: none; accent-color: var(--pine); }
+button {
+  width: 100%; font: inherit; font-size: 16px; font-weight: 600; padding: 13px; border: 0; border-radius: 12px;
+  background: var(--pine); color: var(--sky-top); cursor: pointer;
+}
+button[disabled] { opacity: .6; cursor: default; }
+input:focus-visible, button:focus-visible { outline: 2px solid var(--pine); outline-offset: 2px; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+#status { margin: 14px 0 0; min-height: 1.5em; font-weight: 600; }
+#status.ok { color: var(--ok); }
+#status.err { color: var(--err); }
+ul { padding-left: 22px; }
+li { margin: 4px 0; }
+.facts { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; margin: 0; }
+.facts dt { font-weight: 600; }
+.facts dd { margin: 0; color: var(--text-muted); }
+footer { margin-top: 40px; font-size: 14px; color: var(--text-muted); }
+footer a { color: var(--text-muted); }
