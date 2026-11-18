@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Cooper Lunch Alerts | Around The Woodlands</title>
+  <meta name="description" content="Free nightly text with tomorrow's school lunch menu for John Cooper School families. Optional, up to 5 texts a week, reply STOP anytime." />
+  <meta name="theme-color" content="#F4EAD2" />
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <p class="crumb"><a href="../">&larr; Around The Woodlands</a></p>
+
+    <h1>Cooper Lunch Alerts</h1>
+    <p class="lede">A free text each school night with the next day's lunch menu, so you can decide on packing lunch the evening before.</p>
+
+    <div class="card">
+      <p class="sample">Cooper lunch Wed, Nov 11
+- Turkey Pot Pie
+- Fresh Baked Rolls
+- Side Salad
+Veg: Buffalo Cauliflower Salad Bowl</p>
+
+      <form id="f" novalidate>
+        <label class="field" for="phone">Mobile number</label>
+        <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(281) 555-0123" required>
+
+        <div class="hp" aria-hidden="true">
+          <label for="website">Leave this empty</label>
+          <input id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <label class="consent">
+          <input id="consent" name="consent" type="checkbox" value="true">
+          <span>I agree to receive recurring automated text messages from Cooper Lunch Alerts at the number above with the next day's school lunch menu, up to 5 messages per week. Signing up is optional and free, and consent is not a condition of any purchase. Msg &amp; data rates may apply. Reply HELP for help, STOP to cancel. See the <a href="terms/">Terms</a> and <a href="privacy/">Privacy Policy</a>.</span>
+        </label>
+
+        <button id="go" type="submit">Sign up for texts</button>
+        <p id="status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+
+    <h2>How it works</h2>
+    <dl class="facts">
+      <dt>What you get</dt><dd>One text each school night (Sunday to Thursday) around 6:30 PM Central with the next day's lunch and vegetarian option.</dd>
+      <dt>How often</dt><dd>Up to 5 messages per week. No texts on weekends or school breaks, apart from one heads up before a closure.</dd>
+      <dt>Confirming</dt><dd>After you sign up you get one text asking you to reply YES. Menus start only after you confirm.</dd>
+      <dt>Stopping</dt><dd>Reply STOP to any message to stop all texts. Reply DELETE to erase your number. Reply HELP for help.</dd>
+      <dt>Cost</dt><dd>Free. Message and data rates from your carrier may apply.</dd>
+      <dt>From</dt><dd>+1 (833) 756-2455</dd>
+    </dl>
+
+    <h2>About</h2>
+    <p>Cooper Lunch Alerts is run by Anthony Compofelice, a parent in The Woodlands, as part of Around The Woodlands. It is a private, noncommercial service and is not affiliated with, endorsed by, or operated by The John Cooper School. Menus come from the school's published monthly menu and can change without notice.</p>
+
+    <footer>
+      <a href="terms/">Terms</a> &middot; <a href="privacy/">Privacy Policy</a> &middot; <a href="../">Around The Woodlands</a>
+    </footer>
+  </main>
+  <script>
+    const ENDPOINT = 'https://cooper-lunch-7913-prod.twil.io/signup';
+    const f = document.getElementById('f');
+    const statusEl = document.getElementById('status');
+    const go = document.getElementById('go');
+    const say = (msg, cls) => { statusEl.textContent = msg; statusEl.className = cls || ''; };
+
+    f.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const digits = f.phone.value.replace(/\D/g, '');
+      if (!(digits.length === 10 || (digits.length === 11 && digits[0] === '1'))) return say('Enter a 10 digit US mobile number.', 'err');
+      if (!f.consent.checked) return say('Please check the box to agree to receive texts.', 'err');
+
+      go.disabled = true; say('Sending...');
+      try {
+        const body = new URLSearchParams({ phone: f.phone.value, consent: 'true', website: f.website.value });
+        const r = await fetch(ENDPOINT, { method: 'POST', body });
+        const j = await r.json().catch(() => ({ ok: false, message: 'Something went wrong. Please try again later.' }));
+        say(j.message, j.ok ? 'ok' : 'err');
+        if (j.ok) f.reset();
+      } catch {
+        say('Could not reach the server. Check your connection and try again.', 'err');
+      } finally {
+        go.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

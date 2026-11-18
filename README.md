@@ -18,12 +18,16 @@ Also by the developer:
 - **Cosmica: Idle Universe** — https://apps.apple.com/us/app/cosmica-idle-universe/id6784340038
 - **Pupdoku: Puppy Puzzles** — https://apps.apple.com/us/app/id6797896315
 
+Text alerts:
+- **Cooper Lunch Alerts** (`cooper-lunch/`): sign-up page plus `terms/` and `privacy/` for the nightly John Cooper School lunch menu texts. The form posts to the Twilio function in [Compo-CF/cooper-lunch](https://github.com/Compo-CF/cooper-lunch); the terms and privacy pages are the URLs on file with Twilio's toll free verification, so keep them live and update them (and their date) if the program changes.
+
 Plus the Ko-fi tip jar ([ko-fi.com/subtlefoodie](https://ko-fi.com/subtlefoodie)).
 
 ## Files
 
 ```
 index.html              Page itself (CSS inlined)
+cooper-lunch/           Cooper Lunch Alerts sign-up, terms and privacy pages
 icons/                  App icons for the cards, from the store listings
 icon.png                512px hero icon
 icon-master.png         1024px master, not served
